@@ -7,10 +7,10 @@ public class BlockCube : BlockSolid {
     public Vector2[] textures;
     public bool isSolid = true;
 
-    public override void BuildFace(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction, Block block)
+    public override void BuildFace(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection, Block block)
     {
-        BlockBuilder.BuildRenderer(chunk, pos, meshData, direction);
-        BlockBuilder.BuildTexture(chunk, pos, meshData, direction, new Tile[] {
+        BlockBuilder.BuildRenderer(chunk, pos, meshData, blockDirection);
+        BlockBuilder.BuildTexture(chunk, pos, meshData, blockDirection, new Tile[] {
             new Tile((int)textures[0].x, (int)textures[0].y),
             new Tile((int)textures[1].x, (int)textures[1].y),
             new Tile((int)textures[2].x, (int)textures[2].y),
@@ -18,10 +18,10 @@ public class BlockCube : BlockSolid {
             new Tile((int)textures[4].x, (int)textures[4].y),
             new Tile((int)textures[5].x, (int)textures[5].y)
         });
-        BlockBuilder.BuildColors(chunk, pos, meshData, direction);
+        BlockBuilder.BuildColors(chunk, pos, meshData, blockDirection);
         if (Config.Toggle.UseCollisionMesh)
         {
-            BlockBuilder.BuildCollider(chunk, pos, meshData, direction);
+            BlockBuilder.BuildCollider(chunk, pos, meshData, blockDirection);
         }
     }
 
@@ -30,7 +30,7 @@ public class BlockCube : BlockSolid {
         return blockName;
     }
 
-    public override bool IsSolid(Direction direction)
+    public override bool IsSolid(BlockDirection blockDirection)
     {
         return isSolid;
     }

@@ -66,3 +66,9 @@ $RECYCLE.BIN/
 *.lnk
 .settings/settings.json
 *.suo
+/Assets/UnityVS.meta
+/Assets/UnityVS
+/*.csproj
+/*.sln
+/*.suo
+/VoxelSaves

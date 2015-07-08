@@ -6,7 +6,7 @@ public class BlockAir : BlockController
 
     public BlockAir() : base() { }
 
-    public override bool IsSolid(Direction direction) { return false; }
+    public override bool IsSolid(BlockDirection blockDirection) { return false; }
 
     public override string Name() { return "air"; }
 

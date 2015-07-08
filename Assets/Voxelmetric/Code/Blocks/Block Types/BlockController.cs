@@ -17,7 +17,7 @@ public class BlockController
 
     public virtual string Name() { return "BlockController";  }
 
-    public virtual bool IsSolid(Direction direction) { return false; }
+    public virtual bool IsSolid(BlockDirection blockDirection) { return false; }
 
     public virtual bool IsTransparent() { return false; }
 

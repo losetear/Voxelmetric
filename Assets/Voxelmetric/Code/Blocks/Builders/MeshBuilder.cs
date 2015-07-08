@@ -19,7 +19,7 @@ public class MeshBuilder {
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock + blockHeight, vPos.z - halfBlock));
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock));
         meshData.AddQuadTriangles();
-        BlockBuilder.BuildTexture(chunk, vPos, meshData, Direction.north, tilePos);
+        BlockBuilder.BuildTexture(chunk, vPos, meshData, BlockDirection.north, tilePos);
         meshData.AddColors(blockLight, blockLight, blockLight, blockLight, blockLight);
 
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock));
@@ -27,7 +27,7 @@ public class MeshBuilder {
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock + blockHeight, vPos.z + halfBlock));
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock));
         meshData.AddQuadTriangles();
-        BlockBuilder.BuildTexture(chunk, vPos, meshData, Direction.north, tilePos);
+        BlockBuilder.BuildTexture(chunk, vPos, meshData, BlockDirection.north, tilePos);
         meshData.AddColors(blockLight, blockLight, blockLight, blockLight, blockLight);
 
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock));
@@ -35,7 +35,7 @@ public class MeshBuilder {
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock + blockHeight, vPos.z - halfBlock));
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock));
         meshData.AddQuadTriangles();
-        BlockBuilder.BuildTexture(chunk, vPos, meshData, Direction.north, tilePos);
+        BlockBuilder.BuildTexture(chunk, vPos, meshData, BlockDirection.north, tilePos);
         meshData.AddColors(blockLight, blockLight, blockLight, blockLight, blockLight);
 
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock));
@@ -43,7 +43,7 @@ public class MeshBuilder {
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock + blockHeight, vPos.z + halfBlock));
         meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock));
         meshData.AddQuadTriangles();
-        BlockBuilder.BuildTexture(chunk, vPos, meshData, Direction.north, tilePos);
+        BlockBuilder.BuildTexture(chunk, vPos, meshData, BlockDirection.north, tilePos);
         meshData.AddColors(blockLight, blockLight, blockLight, blockLight, blockLight);
 
         meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock + colliderOffest, vPos.z + halfBlock), collisionMesh: true);

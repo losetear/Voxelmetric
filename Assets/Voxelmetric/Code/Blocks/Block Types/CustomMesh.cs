@@ -14,7 +14,7 @@ public class CustomMesh : BlockController {
         return blockName;
     }
 
-    public override bool IsSolid(Direction direction) { return false; }
+    public override bool IsSolid(BlockDirection blockDirection) { return false; }
 
     public override void AddBlockData(Chunk chunk, BlockPos pos, MeshData meshData, Block block)
     {

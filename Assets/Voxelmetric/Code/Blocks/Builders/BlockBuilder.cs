@@ -4,17 +4,17 @@ using System;
 [Serializable]
 public static class BlockBuilder
 {
-    public static void BuildRenderer(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction)
+    public static void BuildRenderer(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection)
     {
-        AddQuadToMeshData(chunk, pos, meshData, direction, false);
+        AddQuadToMeshData(chunk, pos, meshData, blockDirection, false);
     }
 
-    public static void BuildCollider(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction)
+    public static void BuildCollider(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection)
     {
-        AddQuadToMeshData(chunk, pos, meshData, direction, true);
+        AddQuadToMeshData(chunk, pos, meshData, blockDirection, true);
     }
 
-    public static void BuildColors(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction)
+    public static void BuildColors(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection)
     {
         bool nSolid = false;
         bool eSolid = false;
@@ -28,101 +28,101 @@ public static class BlockBuilder
 
         float light = 0;
 
-        switch (direction)
+        switch (blockDirection)
         {
-            case Direction.up:
-                nSolid = chunk.GetBlock(pos.Add(0, 1, 1)).controller.IsSolid(Direction.south);
-                eSolid = chunk.GetBlock(pos.Add(1, 1, 0)).controller.IsSolid(Direction.west);
-                sSolid = chunk.GetBlock(pos.Add(0, 1, -1)).controller.IsSolid(Direction.north);
-                wSolid = chunk.GetBlock(pos.Add(-1, 1, 0)).controller.IsSolid(Direction.east);
+            case BlockDirection.up:
+                nSolid = chunk.GetBlock(pos.Add(0, 1, 1)).controller.IsSolid(BlockDirection.south);
+                eSolid = chunk.GetBlock(pos.Add(1, 1, 0)).controller.IsSolid(BlockDirection.west);
+                sSolid = chunk.GetBlock(pos.Add(0, 1, -1)).controller.IsSolid(BlockDirection.north);
+                wSolid = chunk.GetBlock(pos.Add(-1, 1, 0)).controller.IsSolid(BlockDirection.east);
 
-                wnSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.south);
-                neSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.west);
-                esSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.east);
+                wnSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.south);
+                neSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.west);
+                esSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(0, 1, 0)).data1 / 255f;
 
                 break;
-            case Direction.down:
-                nSolid = chunk.GetBlock(pos.Add(0, -1, -1)).controller.IsSolid(Direction.south);
-                eSolid = chunk.GetBlock(pos.Add(1, -1, 0)).controller.IsSolid(Direction.west);
-                sSolid = chunk.GetBlock(pos.Add(0, -1, 1)).controller.IsSolid(Direction.north);
-                wSolid = chunk.GetBlock(pos.Add(-1, -1, 0)).controller.IsSolid(Direction.east);
+            case BlockDirection.down:
+                nSolid = chunk.GetBlock(pos.Add(0, -1, -1)).controller.IsSolid(BlockDirection.south);
+                eSolid = chunk.GetBlock(pos.Add(1, -1, 0)).controller.IsSolid(BlockDirection.west);
+                sSolid = chunk.GetBlock(pos.Add(0, -1, 1)).controller.IsSolid(BlockDirection.north);
+                wSolid = chunk.GetBlock(pos.Add(-1, -1, 0)).controller.IsSolid(BlockDirection.east);
 
-                wnSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.south);
-                neSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.west);
-                esSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.east);
+                wnSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.south);
+                neSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.west);
+                esSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(0, -1, 0)).data1 / 255f;
 
                 break;
-            case Direction.north:
-                nSolid = chunk.GetBlock(pos.Add(1, 0, 1)).controller.IsSolid(Direction.west);
-                eSolid = chunk.GetBlock(pos.Add(0, 1, 1)).controller.IsSolid(Direction.down);
-                sSolid = chunk.GetBlock(pos.Add(-1, 0, 1)).controller.IsSolid(Direction.east);
-                wSolid = chunk.GetBlock(pos.Add(0, -1, 1)).controller.IsSolid(Direction.up);
+            case BlockDirection.north:
+                nSolid = chunk.GetBlock(pos.Add(1, 0, 1)).controller.IsSolid(BlockDirection.west);
+                eSolid = chunk.GetBlock(pos.Add(0, 1, 1)).controller.IsSolid(BlockDirection.down);
+                sSolid = chunk.GetBlock(pos.Add(-1, 0, 1)).controller.IsSolid(BlockDirection.east);
+                wSolid = chunk.GetBlock(pos.Add(0, -1, 1)).controller.IsSolid(BlockDirection.up);
 
-                esSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.south);
-                neSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.west);
-                wnSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.east);
+                esSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.south);
+                neSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.west);
+                wnSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(0, 0, 1)).data1 / 255f;
 
                 break;
-            case Direction.east:
-                nSolid = chunk.GetBlock(pos.Add(1, 0, -1)).controller.IsSolid(Direction.up);
-                eSolid = chunk.GetBlock(pos.Add(1, 1, 0)).controller.IsSolid(Direction.west);
-                sSolid = chunk.GetBlock(pos.Add(1, 0, 1)).controller.IsSolid(Direction.down);
-                wSolid = chunk.GetBlock(pos.Add(1, -1, 0)).controller.IsSolid(Direction.east);
+            case BlockDirection.east:
+                nSolid = chunk.GetBlock(pos.Add(1, 0, -1)).controller.IsSolid(BlockDirection.up);
+                eSolid = chunk.GetBlock(pos.Add(1, 1, 0)).controller.IsSolid(BlockDirection.west);
+                sSolid = chunk.GetBlock(pos.Add(1, 0, 1)).controller.IsSolid(BlockDirection.down);
+                wSolid = chunk.GetBlock(pos.Add(1, -1, 0)).controller.IsSolid(BlockDirection.east);
 
-                esSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(Direction.north);
-                neSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.west);
-                wnSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(Direction.east);
+                esSolid = chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(1, 1, 1)).controller.IsSolid(BlockDirection.north);
+                neSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.west);
+                wnSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(1, -1, 1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(1, 0, 0)).data1 / 255f;
 
                 break;
-            case Direction.south:
-                nSolid = chunk.GetBlock(pos.Add(-1, 0, -1)).controller.IsSolid(Direction.down);
-                eSolid = chunk.GetBlock(pos.Add(0, 1, -1)).controller.IsSolid(Direction.west);
-                sSolid = chunk.GetBlock(pos.Add(1, 0, -1)).controller.IsSolid(Direction.up);
-                wSolid = chunk.GetBlock(pos.Add(0, -1, -1)).controller.IsSolid(Direction.south);
+            case BlockDirection.south:
+                nSolid = chunk.GetBlock(pos.Add(-1, 0, -1)).controller.IsSolid(BlockDirection.down);
+                eSolid = chunk.GetBlock(pos.Add(0, 1, -1)).controller.IsSolid(BlockDirection.west);
+                sSolid = chunk.GetBlock(pos.Add(1, 0, -1)).controller.IsSolid(BlockDirection.up);
+                wSolid = chunk.GetBlock(pos.Add(0, -1, -1)).controller.IsSolid(BlockDirection.south);
 
-                esSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(Direction.north);
-                neSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.west);
-                wnSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(Direction.east);
+                esSolid = chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(1, 1, -1)).controller.IsSolid(BlockDirection.north);
+                neSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.west);
+                wnSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(1, -1, -1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(0, 0, -1)).data1 / 255f;
 
                 break;
-            case Direction.west:
-                nSolid = chunk.GetBlock(pos.Add(-1, 0, 1)).controller.IsSolid(Direction.up);
-                eSolid = chunk.GetBlock(pos.Add(-1, 1, 0)).controller.IsSolid(Direction.west);
-                sSolid = chunk.GetBlock(pos.Add(-1, 0, -1)).controller.IsSolid(Direction.down);
-                wSolid = chunk.GetBlock(pos.Add(-1, -1, 0)).controller.IsSolid(Direction.east);
+            case BlockDirection.west:
+                nSolid = chunk.GetBlock(pos.Add(-1, 0, 1)).controller.IsSolid(BlockDirection.up);
+                eSolid = chunk.GetBlock(pos.Add(-1, 1, 0)).controller.IsSolid(BlockDirection.west);
+                sSolid = chunk.GetBlock(pos.Add(-1, 0, -1)).controller.IsSolid(BlockDirection.down);
+                wSolid = chunk.GetBlock(pos.Add(-1, -1, 0)).controller.IsSolid(BlockDirection.east);
 
-                esSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.west) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(Direction.north);
-                neSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.south) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(Direction.west);
-                wnSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.east) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(Direction.north);
-                swSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.north) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(Direction.east);
+                esSolid = chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.west) && chunk.GetBlock(pos.Add(-1, 1, -1)).controller.IsSolid(BlockDirection.north);
+                neSolid = chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.south) && chunk.GetBlock(pos.Add(-1, 1, 1)).controller.IsSolid(BlockDirection.west);
+                wnSolid = chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.east) && chunk.GetBlock(pos.Add(-1, -1, 1)).controller.IsSolid(BlockDirection.north);
+                swSolid = chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.north) && chunk.GetBlock(pos.Add(-1, -1, -1)).controller.IsSolid(BlockDirection.east);
 
                 light = chunk.GetBlock(pos.Add(-1, 0, 0)).data1 / 255f;
 
                 break;
             default:
-                Debug.LogError("Direction not recognized");
+                Debug.LogError("BlockDirection not recognized");
                 break;
         }
 
         AddColors(meshData, wnSolid, nSolid, neSolid, eSolid, esSolid, sSolid, swSolid, wSolid, light);
     }
 
-    public static void BuildTexture(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction, Tile tilePos)
+    public static void BuildTexture(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection, Tile tilePos)
     {
         Vector2[] UVs = new Vector2[4];
 
@@ -134,28 +134,28 @@ public static class BlockBuilder
         meshData.uv.AddRange(UVs);
     }
 
-    public static void BuildTexture(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction, Tile[] tiles)
+    public static void BuildTexture(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection, Tile[] tiles)
     {
         Tile tilePos = new Tile();
 
-        switch (direction)
+        switch (blockDirection)
         {
-            case Direction.up:
+            case BlockDirection.up:
                 tilePos = tiles[0];
                 break;
-            case Direction.down:
+            case BlockDirection.down:
                 tilePos = tiles[1];
                 break;
-            case Direction.north:
+            case BlockDirection.north:
                 tilePos = tiles[2];
                 break;
-            case Direction.east:
+            case BlockDirection.east:
                 tilePos = tiles[3];
                 break;
-            case Direction.south:
+            case BlockDirection.south:
                 tilePos = tiles[4];
                 break;
-            case Direction.west:
+            case BlockDirection.west:
                 tilePos = tiles[5];
                 break;
             default:
@@ -172,7 +172,7 @@ public static class BlockBuilder
         meshData.uv.AddRange(UVs);
     }
 
-    static void AddQuadToMeshData(Chunk chunk, BlockPos pos, MeshData meshData, Direction direction, bool useCollisionMesh)
+    static void AddQuadToMeshData(Chunk chunk, BlockPos pos, MeshData meshData, BlockDirection blockDirection, bool useCollisionMesh)
     {
         //Adding a tiny overlap between block meshes may solve floating point imprecision
         //errors causing pixel size gaps between blocks when looking closely
@@ -181,46 +181,46 @@ public static class BlockBuilder
         //Converting the position to a vector adjusts it based on block size and gives us real world coordinates for x, y and z
         Vector3 vPos = pos;
 
-        switch (direction)
+        switch (blockDirection)
         {
-            case Direction.up:
+            case BlockDirection.up:
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 break;
-            case Direction.down:
+            case BlockDirection.down:
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 break;
-            case Direction.north:
+            case BlockDirection.north:
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 break;
-            case Direction.east:
+            case BlockDirection.east:
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 break;
-            case Direction.south:
+            case BlockDirection.south:
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x + halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 break;
-            case Direction.west:
+            case BlockDirection.west:
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z + halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y + halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 meshData.AddVertex(new Vector3(vPos.x - halfBlock, vPos.y - halfBlock, vPos.z - halfBlock), useCollisionMesh);
                 break;
             default:
-                Debug.LogError("Direction not recognized");
+                Debug.LogError("BlockDirection not recognized");
                 break;
         }
 
